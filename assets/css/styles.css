@@ -964,7 +964,6 @@ html.modal-open { overflow: hidden; }
   justify-content: space-between;
   gap: 24px;
   flex-wrap: wrap;
-  margin-bottom: 22px;
 }
 .footer nav { display: flex; gap: 24px; flex-wrap: wrap; }
 .footer nav a { text-decoration: none; color: var(--teal); }

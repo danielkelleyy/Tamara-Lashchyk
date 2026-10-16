@@ -43,8 +43,9 @@ Everything you need to change lives in the `CONFIG` block at the top of `assets/
    and copy one of the `featured__logo` lines in `index.html`.
 5. **Welcome video.** The confirmation page has a video placeholder next to "You're in!". Put a YouTube, Vimeo or
    Loom *embed* URL in `welcomeVideoEmbedUrl` and the real video replaces it automatically.
-6. **Footer links.** Point Privacy Policy, Terms and Disclaimer (`href="#"`) at Tamara's real pages.
-7. **Compliance.** Have the results disclaimer and the SMS consent line under the form reviewed. Add a source for
+6. **Footer links.** Done: Privacy Policy (https://policies.tamaralashchyk.com/privacy) and Terms
+   (https://policies.tamaralashchyk.com/terms), opening in a new tab.
+7. **Compliance.** Have the short results disclaimer under the client-results cards reviewed. Add a source for
    the "more than 60% of women have never negotiated" claim, or remove it.
 
 ## Putting the pages into GoHighLevel
