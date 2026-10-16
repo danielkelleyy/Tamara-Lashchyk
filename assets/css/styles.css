@@ -1030,7 +1030,46 @@ html.modal-open { overflow: hidden; }
   box-shadow: var(--shadow);
   background: var(--teal);
 }
-.video:has(.video__note) { aspect-ratio: auto; }
+.video__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  color: var(--linen);
+  background:
+    radial-gradient(500px 260px at 100% 0%, rgba(243, 220, 215, 0.28), transparent 60%),
+    radial-gradient(400px 240px at 0% 100%, rgba(138, 175, 138, 0.22), transparent 60%),
+    var(--teal);
+}
+.video__play {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding-left: 4px;
+  background: var(--rose);
+  color: var(--white);
+  box-shadow: 0 0 0 10px rgba(180, 86, 106, 0.22), 0 14px 30px -10px rgba(0, 0, 0, 0.4);
+}
+.video__placeholder p {
+  margin: 6px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(22px, 2.3vw, 28px);
+}
+.video__placeholder small {
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.55;
+}
+.before__body { max-width: 760px; }
 .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .video__note {
   position: relative;

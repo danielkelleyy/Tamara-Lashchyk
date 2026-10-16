@@ -43,13 +43,10 @@ Everything you need to change lives in the `CONFIG` block at the top of `assets/
 4. **"As featured in" logos.** Done: Forbes, Business Insider, BBC and HuffPost, converted to white
    on transparent backgrounds in `assets/images/press/`. To add another, drop a white, transparent PNG there
    and copy one of the `featured__logo` lines in `index.html`.
-5. **Welcome video (optional).** Put a YouTube, Vimeo or Loom *embed* URL in `welcomeVideoEmbedUrl`. Without it,
-   the confirmation page shows a short note from Tamara in that spot.
-6. **Pre-class questions (optional).** The confirmation page asks 5 quick questions. To capture the answers, create
-   a GHL workflow with an **Inbound Webhook** trigger and paste its URL into `quizWebhookUrl`. The answers are sent
-   along with any URL parameters (name, email) that GHL passed through the redirect.
-7. **Footer links.** Point Privacy Policy, Terms and Disclaimer (`href="#"`) at Tamara's real pages.
-8. **Compliance.** Have the results disclaimer and the SMS consent line under the form reviewed. Add a source for
+5. **Welcome video.** The confirmation page has a video placeholder next to "You're in!". Put a YouTube, Vimeo or
+   Loom *embed* URL in `welcomeVideoEmbedUrl` and the real video replaces it automatically.
+6. **Footer links.** Point Privacy Policy, Terms and Disclaimer (`href="#"`) at Tamara's real pages.
+7. **Compliance.** Have the results disclaimer and the SMS consent line under the form reviewed. Add a source for
    the "more than 60% of women have never negotiated" claim, or remove it.
 
 ## Putting the pages into GoHighLevel
@@ -70,7 +67,7 @@ built in:
    - `confirmationUrl`: the URL of your GHL confirmation page. Also set the GHL form's
      **On submit → Redirect to URL** to that page with `?first_name={{contact.first_name}}` on the end.
    - `images`: paste GHL Media-library URLs for Tamara's photos (leave `""` to keep the "TL" placeholder).
-   - Optional: `welcomeVideoEmbedUrl` and `quizWebhookUrl` (confirmation page).
+   - `welcomeVideoEmbedUrl` (confirmation page): Tamara's welcome video. Until it's set, a video placeholder shows.
 5. Save and preview. Set the page title and social share image in GHL's page settings.
 
 **After editing the source files** (`index.html`, `confirmation.html`, `assets/…`), regenerate the GHL files with
