@@ -388,8 +388,10 @@ p { margin: 0 0 1em; }
   padding: 34px 32px 24px;
   box-shadow: var(--shadow);
 }
-.form-card__eyebrow { margin-bottom: 10px; padding-right: 48px; }
-.form-card h2 { font-size: 34px; line-height: 1.1; margin: 0 0 18px; padding-right: 36px; text-wrap: balance; }
+/* Centered header; equal side padding keeps it truly centered and clear of the close button */
+.form-card__eyebrow { display: block; text-align: center; margin-bottom: 10px; padding: 0 44px; }
+.form-card__eyebrow > span { white-space: nowrap; }
+.form-card h2 { font-size: 34px; line-height: 1.1; margin: 0 0 18px; padding: 0 44px; text-align: center; text-wrap: balance; }
 
 /* Pop-up */
 .modal {
@@ -1355,7 +1357,8 @@ html.modal-open { overflow: hidden; }
   .hero h1 { font-size: 40px; }
   .hero__sub { font-size: 23px; }
   .form-card { padding: 30px 20px 20px; }
-  .form-card h2 { font-size: 28px; }
+  .form-card h2 { font-size: 28px; padding: 0 12px; }
+  .form-card__eyebrow { font-size: 10.5px; letter-spacing: 0.1em; padding: 0 40px; }
   .btn--lg { width: 100%; padding: 18px 24px; font-size: 18px; }
   .featured__logos { gap: 26px 20px; }
   .featured__logo { flex: 0 0 calc(50% - 10px); }
