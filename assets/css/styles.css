@@ -498,34 +498,16 @@ html.modal-open { overflow: hidden; }
   justify-content: space-between;
   gap: 24px 36px;
 }
-.featured__logo {
-  position: relative;
-  height: 44px;
-  min-width: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.featured__logo { display: flex; align-items: center; justify-content: center; }
 .featured__logo img {
-  position: relative;
-  z-index: 1;
-  max-height: 44px;
-  max-width: 170px;
   width: auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.88;
+  height: 40px;
+  opacity: 0.9;
 }
-.featured__logo span {
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.45;
-  border: 1px dashed rgba(250, 245, 238, 0.4);
-  border-radius: 8px;
-  padding: 12px 14px;
-}
-.featured__logo img + span { display: none; }
+.featured__logo--bbc img { height: 34px; }
+.featured__logo--bi img { height: 42px; }
+.featured__logo--forbes img { height: 38px; }
+.featured__logo--huffpost img { height: 24px; }
 
 .section-head { margin-bottom: 60px; }
 
@@ -1343,7 +1325,12 @@ html.modal-open { overflow: hidden; }
   .form-card { padding: 30px 20px 20px; }
   .form-card h2 { font-size: 30px; padding-right: 36px; }
   .btn--lg { width: 100%; padding: 18px 24px; font-size: 18px; }
-  .featured__logo { min-width: 0; flex: 0 0 calc(50% - 18px); }
+  .featured__logos { gap: 26px 20px; }
+  .featured__logo { flex: 0 0 calc(50% - 10px); }
+  .featured__logo--bbc img { height: 28px; }
+  .featured__logo--bi img { height: 36px; }
+  .featured__logo--forbes img { height: 32px; }
+  .featured__logo--huffpost img { height: 18px; }
   .preview-form { grid-template-columns: 1fr; }
   .countdown { gap: 6px; }
   .countdown__cell { min-width: 62px; }

@@ -1,1 +1,2 @@
-Publication logos for the "As featured in" band: logo-1.png ... logo-5.png (transparent PNG/SVG).
+Publication logos for the "As featured in" band (white on transparent, 120px tall).
+To add one: drop a PNG/SVG here and add a <div class="featured__logo"><img ...></div> in index.html.

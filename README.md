@@ -38,9 +38,9 @@ Everything you need to change lives in the `CONFIG` block at the top of `assets/
    - `client-shelly.jpg`, `client-nina.jpg`, `client-erica.jpg`: optional square client headshots
      (written consent needed)
    - `og-image.jpg`: 1200×630 social share image
-4. **"As featured in" logos.** Put the publication logos in `assets/images/press/` as `logo-1.png` …
-   `logo-5.png` (transparent PNG or SVG; they're automatically shown in white on the teal band). Update each
-   `alt` text in `index.html` with the publication name, and delete any slots you don't need.
+4. **"As featured in" logos.** Done: Forbes, Business Insider, BBC and HuffPost, converted to white
+   on transparent backgrounds in `assets/images/press/`. To add another, drop a white, transparent PNG there
+   and copy one of the `featured__logo` lines in `index.html`.
 5. **Welcome video (optional).** Put a YouTube, Vimeo or Loom *embed* URL in `welcomeVideoEmbedUrl`. Without it,
    the confirmation page shows a short note from Tamara in that spot.
 6. **Pre-class questions (optional).** The confirmation page asks 5 quick questions. To capture the answers, create
