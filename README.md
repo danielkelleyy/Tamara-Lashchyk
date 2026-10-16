@@ -1,7 +1,7 @@
 # Tamara Lashchyk — Masterclass Funnel
 
 Landing page and confirmation page for Tamara's free live masterclass,
-**"How Women Executives Are Negotiating An Additional $30K–$70K In Compensation."**
+**"How Executive Women Are Negotiating an Additional $30K–$70K in Annual Earnings."**
 
 Built by Beacon Media. The layout follows the Dow Janes reference pages, the section-by-section
 conversion elements come from Tobi's pages, and the palette is Tamara's brand (Deep Teal, Sage,
