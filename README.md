@@ -20,11 +20,12 @@ assets/images/        Drop Tamara's photos here (see below)
 
 Everything you need to change lives in the `CONFIG` block at the top of `assets/js/main.js`.
 
-1. **Masterclass date and time.** Set `startISO` (e.g. `"2026-11-12T19:00:00-05:00"`). Every date on both
-   pages, the countdown and the calendar invites update automatically. **Confirm the real date with Tamara.
-   The current date is a placeholder.**
+1. **Masterclass date and time.** Set to **Sunday, November 1, 2026 at 3:00 PM ET** (`startISO` =
+   `"2026-11-01T15:00:00-05:00"`; daylight saving ends that morning, so it's EST). Every date on both pages,
+   the countdown and the calendar invites update automatically from this one value.
 2. **GHL registration form.** Build the form in GoHighLevel with First Name, Last Name, Email and Phone, then
-   paste its ID into `ghlFormId`. The ID is the last part of the embed URL
+   paste its ID into `ghlFormId`. The form lives in a **pop-up** that opens from every "Save my free seat"
+   button. Linking to `index.html#register` opens the pop-up straight away (handy for ads and emails). The ID is the last part of the embed URL
    `https://api.leadconnectorhq.com/widget/form/<ID>`. Until it's set, the page shows a styled preview form
    with the same four fields, which redirects to the confirmation page for testing.
    - In the GHL form settings, set **On submit → Redirect to URL** to the confirmation page, and add
@@ -37,13 +38,16 @@ Everything you need to change lives in the `CONFIG` block at the top of `assets/
    - `client-shelly.jpg`, `client-nina.jpg`, `client-erica.jpg`: optional square client headshots
      (written consent needed)
    - `og-image.jpg`: 1200×630 social share image
-4. **Welcome video (optional).** Put a YouTube, Vimeo or Loom *embed* URL in `welcomeVideoEmbedUrl`. Without it,
+4. **"As featured in" logos.** Put the publication logos in `assets/images/press/` as `logo-1.png` …
+   `logo-5.png` (transparent PNG or SVG; they're automatically shown in white on the teal band). Update each
+   `alt` text in `index.html` with the publication name, and delete any slots you don't need.
+5. **Welcome video (optional).** Put a YouTube, Vimeo or Loom *embed* URL in `welcomeVideoEmbedUrl`. Without it,
    the confirmation page shows a short note from Tamara in that spot.
-5. **Pre-class questions (optional).** The confirmation page asks 5 quick questions. To capture the answers, create
+6. **Pre-class questions (optional).** The confirmation page asks 5 quick questions. To capture the answers, create
    a GHL workflow with an **Inbound Webhook** trigger and paste its URL into `quizWebhookUrl`. The answers are sent
    along with any URL parameters (name, email) that GHL passed through the redirect.
-6. **Footer links.** Point Privacy Policy, Terms and Disclaimer (`href="#"`) at Tamara's real pages.
-7. **Compliance.** Have the results disclaimer and the SMS consent line under the form reviewed. Add a source for
+7. **Footer links.** Point Privacy Policy, Terms and Disclaimer (`href="#"`) at Tamara's real pages.
+8. **Compliance.** Have the results disclaimer and the SMS consent line under the form reviewed. Add a source for
    the "more than 60% of women have never negotiated" claim, or remove it.
 
 ## Hosting

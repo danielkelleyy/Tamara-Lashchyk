@@ -3,8 +3,8 @@
    ========================================================================== */
 const CONFIG = {
   // Masterclass start time, written with its UTC offset (EST = -05:00, EDT = -04:00).
-  // TODO: confirm the real date & time with Tamara.
-  startISO: "2026-11-12T19:00:00-05:00",
+  // Sunday, November 1, 2026 at 3:00 PM Eastern (EST — daylight saving ends that morning).
+  startISO: "2026-11-01T15:00:00-05:00",
   durationMinutes: 75,
 
   title: "Free Live Masterclass with Tamara Lashchyk",
@@ -313,21 +313,32 @@ function wireQuiz() {
 }
 
 /* ==========================================================================
-   Smooth scroll to the form & reveal-on-scroll
+   Registration pop-up — every "Save my seat" button opens it
    ========================================================================== */
-function wireScrollLinks() {
-  $$("a[href='#register']").forEach((a) =>
-    a.addEventListener("click", (e) => {
-      const target = $("#register");
-      if (!target) return;
-      e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      setTimeout(() => {
-        const first = $("input, iframe", target);
-        if (first && first.tagName === "INPUT") first.focus({ preventScroll: true });
-      }, 600);
-    })
-  );
+function wireModal() {
+  const modal = $("dialog#register");
+  if (!modal) return;
+
+  const open = (e) => {
+    if (e) e.preventDefault();
+    if (typeof modal.showModal === "function") modal.showModal();
+    else modal.setAttribute("open", "");
+    document.documentElement.classList.add("modal-open");
+    const first = $("input", modal);
+    if (first) setTimeout(() => first.focus(), 50);
+  };
+  const close = () => {
+    if (typeof modal.close === "function") modal.close();
+    else modal.removeAttribute("open");
+  };
+
+  $$("a[href='#register']").forEach((a) => a.addEventListener("click", open));
+  $$("[data-close]", modal).forEach((b) => b.addEventListener("click", close));
+  // Click on the dimmed backdrop (outside the card) closes it
+  modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
+  modal.addEventListener("close", () => document.documentElement.classList.remove("modal-open"));
+  // Shareable link that opens the pop-up directly: page.html#register
+  if (location.hash === "#register") open();
 }
 
 function reveal() {
@@ -348,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
   mountVideo();
   personalize();
   wireQuiz();
-  wireScrollLinks();
+  wireModal();
   reveal();
   const y = $("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
