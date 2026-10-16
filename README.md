@@ -32,7 +32,7 @@ Everything you need to change lives in the `CONFIG` block at the top of `assets/
      `?first_name={{contact.first_name}}` so the page says "You're in, Jane!"
    - Adjust `ghlFormHeight` if the form is taller or shorter than 460px once styled in GHL.
 3. **Photos.** Add these to `assets/images/`. Until they exist, each slot shows a branded "TL" placeholder.
-   - `tamara-hero.jpg`: portrait for the hero, about 1000×1150, with the countdown overlaid at the bottom
+   - `tamara-hero.jpg`: **landscape** photo for the centered hero, about 1600×1000, with her face in the upper two-thirds (the countdown sits over the bottom)
    - `tamara-about.jpg`: portrait for "Meet your host," about 900×1200
    - `tamara-avatar.jpg`: square headshot for the confirmation sign-off
    - `client-shelly.jpg`, `client-nina.jpg`, `client-erica.jpg`: optional square client headshots
