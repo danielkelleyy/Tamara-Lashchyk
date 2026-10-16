@@ -9,11 +9,13 @@ Linen, Sage Mist) softened with blush and rose. All copy comes from Tamara's int
 masterclass script, in her voice.
 
 ```
+ghl/                  ⭐ Paste-ready GoHighLevel versions of both pages
 index.html            Landing / registration page
 confirmation.html     Thank-you / "You're in" page
 assets/css/styles.css Shared styles (all colors are CSS variables at the top)
 assets/js/main.js     Shared behavior + the CONFIG block you edit
 assets/images/        Drop Tamara's photos here (see below)
+tools/build-ghl.py    Regenerates the ghl/ files from the source pages
 ```
 
 ## Go-live checklist
@@ -50,13 +52,35 @@ Everything you need to change lives in the `CONFIG` block at the top of `assets/
 8. **Compliance.** Have the results disclaimer and the SMS consent line under the form reviewed. Add a source for
    the "more than 60% of women have never negotiated" claim, or remove it.
 
-## Hosting
+## Putting the pages into GoHighLevel
 
-The pages are plain static HTML/CSS/JS, so you can use any of these:
+Use the two paste-ready files in the `ghl/` folder. Each one is self-contained, with styles, scripts and logos
+built in:
+
+- `ghl/landing-page.html` → your GHL landing/opt-in page
+- `ghl/confirmation-page.html` → your GHL thank-you page
+
+**Steps (do this for each page):**
+
+1. In GHL, create the funnel step and open the page builder.
+2. Add a full-width section with one row and one column, and set the section/row padding to 0.
+3. Drag in a **Custom JS/HTML** element, open the file on GitHub, click **Raw**, select all, copy, and paste it in.
+4. At the very top of the pasted code is a `window.TL_CONFIG` settings block. Fill in:
+   - `ghlFormId`: your GHL form's ID (landing page). The form opens in the pop-up.
+   - `confirmationUrl`: the URL of your GHL confirmation page. Also set the GHL form's
+     **On submit → Redirect to URL** to that page with `?first_name={{contact.first_name}}` on the end.
+   - `images`: paste GHL Media-library URLs for Tamara's photos (leave `""` to keep the "TL" placeholder).
+   - Optional: `welcomeVideoEmbedUrl` and `quizWebhookUrl` (confirmation page).
+5. Save and preview. Set the page title and social share image in GHL's page settings.
+
+**After editing the source files** (`index.html`, `confirmation.html`, `assets/…`), regenerate the GHL files with
+`python3 tools/build-ghl.py` (needs Python 3 with Pillow).
+
+## Other hosting
+
+The source pages are plain static HTML/CSS/JS, so they also work on:
 
 - **GitHub Pages:** Settings → Pages → Deploy from branch `main` / root.
-- **GHL funnel:** paste each page's `<body>` content into a Custom HTML/JS element, with `styles.css` in a
-  `<style>` tag and `main.js` in a `<script>` tag (or host the assets elsewhere and link to them).
 - **Netlify / Vercel:** drag and drop the folder.
 
 ## Preview locally
