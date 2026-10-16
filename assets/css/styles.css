@@ -317,7 +317,7 @@ p { margin: 0 0 1em; }
   line-height: 1.2;
   color: var(--rose);
   max-width: 760px;
-  margin: 0 auto 20px;
+  margin: 0 auto 40px;
 }
 .hero .lede { max-width: 680px; margin: 0 auto 40px; }
 .hero__visual { max-width: 760px; margin: 0 auto; }
