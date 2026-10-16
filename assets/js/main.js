@@ -15,12 +15,13 @@ const CONFIG = {
   // Where the event happens. Leave as-is if the join link only goes out by email.
   location: "Online — join link in your confirmation email",
 
-  // GoHighLevel registration form (landing page).
-  // In GHL: Sites → Forms → your form → Integrate → copy the ID from the embed URL
-  //   https://api.leadconnectorhq.com/widget/form/<THIS_ID>
-  // While this is empty, a styled preview form (first, last, email, phone) is shown.
-  ghlFormId: "",
-  ghlFormHeight: 460,
+  // GoHighLevel registration form (landing page pop-up).
+  // Form link: https://link.tamaralashchyk.com/widget/form/y7vKTaUARmq03P0S6yWQ
+  // ghlFormDomain = the part before /widget/form/, ghlFormId = the part after it.
+  // If ghlFormId is empty, a styled preview form (first, last, email, phone) is shown instead.
+  ghlFormDomain: "https://link.tamaralashchyk.com",
+  ghlFormId: "y7vKTaUARmq03P0S6yWQ",
+  ghlFormHeight: 460, // starting height; GHL's embed script resizes it to fit the form
 
   // Where the preview form sends people (the real GHL form should redirect here too).
   confirmationUrl: "confirmation.html",
@@ -107,12 +108,13 @@ function mountForms() {
 
   if (CONFIG.ghlFormId) {
     const id = CONFIG.ghlFormId;
+    const domain = (CONFIG.ghlFormDomain || "https://api.leadconnectorhq.com").replace(/\/+$/, "");
     slots.forEach((slot, i) => {
       const frameId = `inline-${id}${i ? "-" + i : ""}`;
       slot.innerHTML = `
         <div class="ghl-embed">
           <iframe
-            src="https://api.leadconnectorhq.com/widget/form/${id}"
+            src="${domain}/widget/form/${id}"
             style="height:${CONFIG.ghlFormHeight}px"
             id="${frameId}"
             data-layout="{'id':'INLINE'}"
@@ -130,7 +132,7 @@ function mountForms() {
         </div>`;
     });
     const s = document.createElement("script");
-    s.src = "https://link.msgsndr.com/js/form_embed.js";
+    s.src = `${domain}/js/form_embed.js`;
     s.async = true;
     document.body.appendChild(s);
     return;

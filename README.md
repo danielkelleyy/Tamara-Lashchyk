@@ -25,14 +25,12 @@ Everything you need to change lives in the `CONFIG` block at the top of `assets/
 1. **Masterclass date and time.** Set to **Sunday, November 1, 2026 at 3:00 PM ET** (`startISO` =
    `"2026-11-01T15:00:00-05:00"`; daylight saving ends that morning, so it's EST). Every date on both pages,
    the countdown and the calendar invites update automatically from this one value.
-2. **GHL registration form.** Build the form in GoHighLevel with First Name, Last Name, Email and Phone, then
-   paste its ID into `ghlFormId`. The form lives in a **pop-up** that opens from every "Save my free seat"
-   button. Linking to `index.html#register` opens the pop-up straight away (handy for ads and emails). The ID is the last part of the embed URL
-   `https://api.leadconnectorhq.com/widget/form/<ID>`. Until it's set, the page shows a styled preview form
-   with the same four fields, which redirects to the confirmation page for testing.
+2. **GHL registration form.** Connected: `https://link.tamaralashchyk.com/widget/form/y7vKTaUARmq03P0S6yWQ`
+   (`ghlFormDomain` + `ghlFormId`). It opens in the **pop-up** from every "Save my free seat" button. Linking to
+   `index.html#register` opens the pop-up straight away (handy for ads and emails).
    - In the GHL form settings, set **On submit → Redirect to URL** to the confirmation page, and add
      `?first_name={{contact.first_name}}` so the page says "You're in, Jane!"
-   - Adjust `ghlFormHeight` if the form is taller or shorter than 460px once styled in GHL.
+   - GHL's embed script resizes the form to fit; `ghlFormHeight` is only the starting height.
 3. **Photos.** Add these to `assets/images/`. Until they exist, each slot shows a branded "TL" placeholder.
    - `tamara-hero.jpg`: **landscape** photo for the centered hero, about 1600×1000, with her face in the upper two-thirds (the countdown sits over the bottom)
    - `tamara-about.jpg`: portrait for "Meet your host," about 900×1200
@@ -63,7 +61,7 @@ built in:
 2. Add a full-width section with one row and one column, and set the section/row padding to 0.
 3. Drag in a **Custom JS/HTML** element, open the file on GitHub, click **Raw**, select all, copy, and paste it in.
 4. At the very top of the pasted code is a `window.TL_CONFIG` settings block. Fill in:
-   - `ghlFormId`: your GHL form's ID (landing page). The form opens in the pop-up.
+   - `ghlFormId` / `ghlFormDomain`: already set to Tamara's registration form (landing page pop-up).
    - `confirmationUrl`: the URL of your GHL confirmation page. Also set the GHL form's
      **On submit → Redirect to URL** to that page with `?first_name={{contact.first_name}}` on the end.
    - `images`: paste GHL Media-library URLs for Tamara's photos (leave `""` to keep the "TL" placeholder).
