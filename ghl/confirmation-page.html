@@ -36,11 +36,11 @@ window.TL_CONFIG = {
   // (Automation → Workflow → Trigger: Inbound Webhook.) Empty = answers are not sent.
   quizWebhookUrl: "",
 
-  // Photos: upload to GHL Media library, copy each file's URL, paste it here.
-  // Leave "" to show the branded "TL" placeholder.
+  // Photos. Pre-filled ones load from the project's GitHub repo. To use GHL instead,
+  // upload to the GHL Media library and paste each file's URL. "" = branded "TL" placeholder.
   images: {
-    heroPhoto: "",   // landscape, ~1600x1000 (landing page hero)
-    aboutPhoto: "",  // portrait, ~900x1200 (landing page "Meet your host")
+    heroPhoto: "https://cdn.jsdelivr.net/gh/danielkelleyy/Tamara-Lashchyk@18af55d0ef7db42fc5c1ed5b97d820a83efc9421/assets/images/tamara-hero.jpg", // landscape, 4:3 (landing page hero)
+    aboutPhoto: "https://cdn.jsdelivr.net/gh/danielkelleyy/Tamara-Lashchyk@18af55d0ef7db42fc5c1ed5b97d820a83efc9421/assets/images/tamara-about.jpg", // portrait, 4:5 (landing page "Meet your host")
     avatarPhoto: "", // square headshot (confirmation page sign-off)
     shellyPhoto: "", // optional client headshots (written consent needed)
     ninaPhoto: "",

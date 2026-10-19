@@ -31,9 +31,9 @@ Everything you need to change lives in the `CONFIG` block at the top of `assets/
    - In the GHL form settings, set **On submit → Redirect to URL** to the confirmation page, and add
      `?first_name={{contact.first_name}}` so the page says "You're in, Jane!"
    - GHL's embed script resizes the form to fit; `ghlFormHeight` is only the starting height.
-3. **Photos.** Add these to `assets/images/`. Until they exist, each slot shows a branded "TL" placeholder.
-   - `tamara-hero.jpg`: **landscape** photo for the centered hero, about 1600×1000, with her face in the upper two-thirds (the countdown sits over the bottom)
-   - `tamara-about.jpg`: portrait for "Meet your host," about 900×1200
+3. **Photos.** In `assets/images/`; any missing slot shows a branded "TL" placeholder.
+   - `tamara-hero.jpg`: ✅ seated photo (white top, coral necklace), cropped 4:3. The countdown card sits across its bottom edge.
+   - `tamara-about.jpg`: ✅ standing photo in the orange top, cropped 4:5, for "Meet your host"
    - `tamara-avatar.jpg`: square headshot for the confirmation sign-off
    - `client-shelly.jpg`, `client-nina.jpg`, `client-erica.jpg`: optional square client headshots
      (written consent needed)
@@ -65,12 +65,15 @@ built in:
    - `ghlFormId` / `ghlFormDomain`: already set to Tamara's registration form (landing page pop-up).
    - `confirmationUrl`: the URL of your GHL confirmation page. Also set the GHL form's
      **On submit → Redirect to URL** to that page with `?first_name={{contact.first_name}}` on the end.
-   - `images`: paste GHL Media-library URLs for Tamara's photos (leave `""` to keep the "TL" placeholder).
+   - `images`: the hero and host photos are pre-filled and load from this repo through jsDelivr, a free CDN for
+     public GitHub files. For long-term hosting (or if the repo is ever made private), upload them to the GHL Media
+     library and paste those URLs instead.
    - `welcomeVideoEmbedUrl` (confirmation page): Tamara's welcome video. Until it's set, a video placeholder shows.
 5. Save and preview. Set the page title and social share image in GHL's page settings.
 
 **After editing the source files** (`index.html`, `confirmation.html`, `assets/…`), regenerate the GHL files with
-`python3 tools/build-ghl.py` (needs Python 3 with Pillow).
+`python3 tools/build-ghl.py` (needs Python 3 with Pillow). If you add or change a photo, commit and push it first,
+then rebuild, so its jsDelivr link points at the pushed version.
 
 ## Other hosting
 

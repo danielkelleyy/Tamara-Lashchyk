@@ -12,6 +12,7 @@ confirmation.html, assets/css/styles.css or assets/js/main.js.
 import base64
 import io
 import re
+import subprocess
 from pathlib import Path
 
 from PIL import Image
@@ -29,6 +30,41 @@ PHOTO_KEYS = {
     "client-nina.jpg": "ninaPhoto",
     "client-erica.jpg": "ericaPhoto",
 }
+
+
+# Committed photos are served from the public repo via jsDelivr, pinned to the
+# commit that last changed each file (immutable, so caches never go stale).
+CDN = "https://cdn.jsdelivr.net/gh/danielkelleyy/Tamara-Lashchyk@{sha}/assets/images/{fname}"
+PHOTO_NOTES = {
+    "heroPhoto": "landscape, 4:3 (landing page hero)",
+    "aboutPhoto": "portrait, 4:5 (landing page \"Meet your host\")",
+    "avatarPhoto": "square headshot (confirmation page sign-off)",
+    "shellyPhoto": "optional client headshots (written consent needed)",
+    "ninaPhoto": "",
+    "ericaPhoto": "",
+}
+
+
+def photo_urls():
+    """CDN URL for each photo that exists and is committed; "" otherwise."""
+    urls = {}
+    for fname, key in PHOTO_KEYS.items():
+        path = ROOT / "assets/images" / fname
+        sha = ""
+        if path.exists():
+            sha = subprocess.run(
+                ["git", "log", "-1", "--format=%H", "--", str(path)],
+                cwd=ROOT, capture_output=True, text=True,
+            ).stdout.strip()
+            dirty = subprocess.run(
+                ["git", "status", "--porcelain", "--", str(path)],
+                cwd=ROOT, capture_output=True, text=True,
+            ).stdout.strip()
+            if dirty:
+                print(f"warning: {fname} has uncommitted changes; commit and push, then rebuild")
+                sha = ""
+        urls[key] = CDN.format(sha=sha, fname=fname) if sha else ""
+    return urls
 
 
 # --------------------------------------------------------------------------
@@ -148,18 +184,16 @@ def config_script(config_body, page):
         'confirmationUrl: "confirmation.html",',
         'confirmationUrl: "PASTE-YOUR-GHL-CONFIRMATION-PAGE-URL",',
     )
-    images = """
-  // Photos: upload to GHL Media library, copy each file's URL, paste it here.
-  // Leave "" to show the branded "TL" placeholder.
-  images: {
-    heroPhoto: "",   // landscape, ~1600x1000 (landing page hero)
-    aboutPhoto: "",  // portrait, ~900x1200 (landing page "Meet your host")
-    avatarPhoto: "", // square headshot (confirmation page sign-off)
-    shellyPhoto: "", // optional client headshots (written consent needed)
-    ninaPhoto: "",
-    ericaPhoto: "",
-  },
-"""
+    urls = photo_urls()
+    lines = []
+    for key, note in PHOTO_NOTES.items():
+        comment = f" // {note}" if note else ""
+        lines.append(f'    {key}: "{urls.get(key, "")}",{comment}')
+    images = (
+        "\n  // Photos. Pre-filled ones load from the project's GitHub repo. To use GHL instead,\n"
+        "  // upload to the GHL Media library and paste each file's URL. \"\" = branded \"TL\" placeholder.\n"
+        "  images: {\n" + "\n".join(lines) + "\n  },\n"
+    )
     config_body = config_body.rstrip()[:-1].rstrip() + "\n" + images + "}"
     return (
         "<!-- ============================================================\n"
