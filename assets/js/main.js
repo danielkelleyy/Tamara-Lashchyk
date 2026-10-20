@@ -9,7 +9,7 @@ const CONFIG = {
 
   title: "Free Live Masterclass with Tamara Lashchyk",
   calendarDetails:
-    "How Executive Women Are Negotiating an Additional $30K–$70K in Annual Earnings.\n\n" +
+    "How Executive Women Earning $150K–$300K Add $30K–$70K By Year End.\n\n" +
     "Your private join link is in your confirmation email from Tamara Lashchyk.\n" +
     "Bring a notebook and the conversation you've been putting off.",
   // Where the event happens. Leave as-is if the join link only goes out by email.
