@@ -41,8 +41,11 @@ Everything you need to change lives in the `CONFIG` block at the top of `assets/
 4. **"As featured in" logos.** Done: Forbes, Business Insider, BBC and HuffPost, converted to white
    on transparent backgrounds in `assets/images/press/`. To add another, drop a white, transparent PNG there
    and copy one of the `featured__logo` lines in `index.html`.
-5. **Welcome video.** The confirmation page has a video placeholder next to "You're in!". Put a YouTube, Vimeo or
-   Loom *embed* URL in `welcomeVideoEmbedUrl` and the real video replaces it automatically.
+5. **Welcome video.** ✅ `assets/video/welcome.mp4` (46 s, thumbnail `welcome-poster.jpg`) plays in a built-in
+   player next to "You're in!". To swap it, replace the file (or set `welcomeVideoEmbedUrl` to a YouTube, Vimeo or
+   Loom *embed* URL).
+   **Zoom link.** ✅ `joinUrl` holds the masterclass Zoom link. It's the location and the first line of the
+   description in the Google, Outlook and Apple/iCal invites.
 6. **Footer links.** Done: Privacy Policy (https://policies.tamaralashchyk.com/privacy) and Terms
    (https://policies.tamaralashchyk.com/terms), opening in a new tab.
 7. **Compliance.** Have the short results disclaimer under the client-results cards reviewed. Add a source for
@@ -68,7 +71,8 @@ built in:
    - `images`: the hero and host photos are pre-filled and load from this repo through jsDelivr, a free CDN for
      public GitHub files. For long-term hosting (or if the repo is ever made private), upload them to the GHL Media
      library and paste those URLs instead.
-   - `welcomeVideoEmbedUrl` (confirmation page): Tamara's welcome video. Until it's set, a video placeholder shows.
+   - `welcomeVideoEmbedUrl` / `welcomeVideoPoster` (confirmation page): pre-filled with Tamara's welcome video.
+   - `joinUrl`: the Zoom link used in the calendar invites (pre-filled).
 5. Save and preview. Set the page title and social share image in GHL's page settings.
 
 **After editing the source files** (`index.html`, `confirmation.html`, `assets/…`), regenerate the GHL files with
