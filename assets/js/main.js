@@ -10,10 +10,9 @@ const CONFIG = {
   title: "Free Live Masterclass with Tamara Lashchyk",
   calendarDetails:
     "How Executive Women Earning $150K–$300K Add $30K–$70K By Year End.\n\n" +
-    "Your private join link is in your confirmation email from Tamara Lashchyk.\n" +
     "Bring a notebook and the conversation you've been putting off.",
-  // Where the event happens. Leave as-is if the join link only goes out by email.
-  location: "Online — join link in your confirmation email",
+  // Zoom link for the live masterclass. Goes into every calendar invite (location + description).
+  joinUrl: "https://us02web.zoom.us/j/84610865547?pwd=1eMpXyAtbX2YGL4WgMHQPvKOt6jril.1",
 
   // GoHighLevel registration form (landing page pop-up).
   // Form link: https://link.tamaralashchyk.com/widget/form/y7vKTaUARmq03P0S6yWQ
@@ -26,8 +25,10 @@ const CONFIG = {
   // Where the preview form sends people (the real GHL form should redirect here too).
   confirmationUrl: "confirmation.html",
 
-  // Confirmation page welcome video (YouTube/Vimeo/Loom *embed* URL). Empty = note card.
-  welcomeVideoEmbedUrl: "",
+  // Confirmation page welcome video: an .mp4 file (plays in a built-in player) or a
+  // YouTube/Vimeo/Loom *embed* URL. Empty = video placeholder.
+  welcomeVideoEmbedUrl: "assets/video/welcome.mp4",
+  welcomeVideoPoster: "assets/video/welcome-poster.jpg", // thumbnail shown before play (.mp4 only)
 
   // Optional: GHL inbound-webhook URL that receives the 5 pre-class question answers.
   // (Automation → Workflow → Trigger: Inbound Webhook.) Empty = answers are not sent.
@@ -159,13 +160,22 @@ function toICSDate(d) {
   return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 }
 
+function calLocation() {
+  return CONFIG.joinUrl || CONFIG.location || "Online";
+}
+
+function calDetails() {
+  const join = CONFIG.joinUrl ? `Join on Zoom: ${CONFIG.joinUrl}\n\n` : "";
+  return join + CONFIG.calendarDetails;
+}
+
 function googleCalUrl() {
   const p = new URLSearchParams({
     action: "TEMPLATE",
     text: CONFIG.title,
     dates: `${toICSDate(start)}/${toICSDate(end)}`,
-    details: CONFIG.calendarDetails,
-    location: CONFIG.location,
+    details: calDetails(),
+    location: calLocation(),
   });
   return `https://calendar.google.com/calendar/render?${p.toString()}`;
 }
@@ -177,8 +187,8 @@ function outlookCalUrl() {
     subject: CONFIG.title,
     startdt: start.toISOString(),
     enddt: end.toISOString(),
-    body: CONFIG.calendarDetails,
-    location: CONFIG.location,
+    body: calDetails(),
+    location: calLocation(),
   });
   return `https://outlook.live.com/calendar/0/deeplink/compose?${p.toString()}`;
 }
@@ -195,8 +205,9 @@ function downloadICS() {
     `DTSTART:${toICSDate(start)}`,
     `DTEND:${toICSDate(end)}`,
     `SUMMARY:${esc(CONFIG.title)}`,
-    `DESCRIPTION:${esc(CONFIG.calendarDetails)}`,
-    `LOCATION:${esc(CONFIG.location)}`,
+    `DESCRIPTION:${esc(calDetails())}`,
+    `LOCATION:${esc(calLocation())}`,
+    ...(CONFIG.joinUrl ? [`URL:${CONFIG.joinUrl}`] : []),
     "BEGIN:VALARM",
     "TRIGGER:-PT30M",
     "ACTION:DISPLAY",
@@ -204,7 +215,9 @@ function downloadICS() {
     "END:VALARM",
     "END:VEVENT",
     "END:VCALENDAR",
-  ].join("\r\n");
+  ]
+    .map((line) => line.match(/.{1,60}/g).join("\r\n "))
+    .join("\r\n");
   const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
@@ -233,8 +246,15 @@ function wireCalendar() {
    ========================================================================== */
 function mountVideo() {
   const box = $("[data-welcome-video]");
-  if (!box || !CONFIG.welcomeVideoEmbedUrl) return;
-  box.innerHTML = `<iframe src="${CONFIG.welcomeVideoEmbedUrl}" title="A welcome from Tamara"
+  const url = CONFIG.welcomeVideoEmbedUrl;
+  if (!box || !url) return;
+  if (/\.(mp4|webm|mov)(\?|$)/i.test(url)) {
+    const poster = CONFIG.welcomeVideoPoster ? ` poster="${CONFIG.welcomeVideoPoster}"` : "";
+    box.innerHTML = `<video src="${url}"${poster} controls playsinline preload="metadata"
+      title="A welcome from Tamara"></video>`;
+    return;
+  }
+  box.innerHTML = `<iframe src="${url}" title="A welcome from Tamara"
     allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>`;
 }
 

@@ -45,6 +45,30 @@ PHOTO_NOTES = {
 }
 
 
+def committed_sha(path):
+    """Last commit touching path, or "" if missing or it has uncommitted changes."""
+    if not path.exists():
+        return ""
+    dirty = subprocess.run(
+        ["git", "status", "--porcelain", "--", str(path)], cwd=ROOT, capture_output=True, text=True
+    ).stdout.strip()
+    if dirty:
+        print(f"warning: {path.name} has uncommitted changes; commit and push, then rebuild")
+        return ""
+    return subprocess.run(
+        ["git", "log", "-1", "--format=%H", "--", str(path)], cwd=ROOT, capture_output=True, text=True
+    ).stdout.strip()
+
+
+def cdn_assets(config_body):
+    """Point repo-relative "assets/video/..." settings at jsDelivr (pinned to their commit)."""
+    def sub(m):
+        rel = m.group(1)
+        sha = committed_sha(ROOT / rel)
+        return f'"https://cdn.jsdelivr.net/gh/danielkelleyy/Tamara-Lashchyk@{sha}/{rel}"' if sha else '""'
+    return re.sub(r'"(assets/video/[^"]+)"', sub, config_body)
+
+
 def photo_urls():
     """CDN URL for each photo that exists and is committed; "" otherwise."""
     urls = {}
@@ -184,6 +208,7 @@ def config_script(config_body, page):
         'confirmationUrl: "confirmation.html",',
         'confirmationUrl: "PASTE-YOUR-GHL-CONFIRMATION-PAGE-URL",',
     )
+    config_body = cdn_assets(config_body)
     urls = photo_urls()
     lines = []
     for key, note in PHOTO_NOTES.items():
