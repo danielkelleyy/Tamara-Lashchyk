@@ -5,7 +5,7 @@ const CONFIG = {
   // Masterclass start time, written with its UTC offset (EST = -05:00, EDT = -04:00).
   // Sunday, November 1, 2026 at 3:00 PM Eastern (EST — daylight saving ends that morning).
   startISO: "2026-11-01T15:00:00-05:00",
-  durationMinutes: 75,
+  durationMinutes: 90,
 
   title: "Free Live Masterclass with Tamara Lashchyk",
   calendarDetails:
